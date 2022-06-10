@@ -1,0 +1,30 @@
+.form-content-login{
+    border: 1px solid black;
+    width: 30%;
+    height: 50%;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+
+.login{
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+   
+}
+
+.link{
+    margin-bottom: 20px;
+}
+
+.row-content-login{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+   
+    
+}
+
+.input-login{
+    width: 80%;
+}
