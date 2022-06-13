@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import book from "../../assets/icons/Group 5.svg";
+import book from "../../../assets/icons/Group 5.svg";
 import "./SignUp.css";
-import UserRegistrationService from "../../services/UserRegistrationService";
+import UserRegistrationService from "../../../services/UserRegistrationService";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -13,7 +13,7 @@ export default function SignUp() {
     kyc: "",
     dob: "",
     email: "",
-    phone:"",
+    role: "",
     password: "",
     createdDate: "",
     isVerified: false,
@@ -28,6 +28,7 @@ export default function SignUp() {
       dob: user.dob,
       email: user.email,
       password: user.password,
+      role: user.role,
     };
 
     UserRegistrationService.registerUser(userData)
@@ -57,7 +58,7 @@ export default function SignUp() {
       dob: "",
       email: "",
       password: "",
-      phone:"",
+      phone: "",
       createdDate: "",
       isVerified: false,
     });
@@ -66,13 +67,21 @@ export default function SignUp() {
   return (
     <div>
       <header className="header-content header">
-        <div className="logo-content">
+        <div className="logo-content-home">
           <img
             src={book}
             alt="logo-content"
             className="logo-content-img"
             width=""
           />
+          <span className="logo-content-home-links">
+            <Link className="login-link link" to="/login">
+              login{" "}
+            </Link>
+            <Link className="signUp-link link" to="/signUp">
+              signup
+            </Link>
+          </span>
         </div>
       </header>
 
@@ -90,7 +99,7 @@ export default function SignUp() {
           <div className="row-content">
             <TextField
               className="input"
-              label = "FirstName*"
+              label="FirstName*"
               type="text"
               id="outlined-required"
               placeholder="FirstName*"
@@ -143,10 +152,10 @@ export default function SignUp() {
             <TextField
               className="input"
               type="text"
-              placeholder="Phone Number*"
-              label="Phone Number*"
-              name="phone"
-              value={user.phone}
+              placeholder="Role*"
+              label="Role *"
+              name="role"
+              value={user.role}
               onChange={handleUserInput}
             />
           </div>
@@ -174,16 +183,18 @@ export default function SignUp() {
           </div>
 
           <div className="row-content">
-            <Button type="submit" 
-            className="submit-button button addButton"
-            variant="contained"
+            <Button
+              type="submit"
+              className="submit-button button addButton"
+              variant="contained"
               color="success"
             >
               SignUp
             </Button>
-            <Button type="reset" 
-            className="reset-button button resetButton"
-            variant="contained"
+            <Button
+              type="reset"
+              className="reset-button button resetButton"
+              variant="contained"
               color="success"
             >
               Reset

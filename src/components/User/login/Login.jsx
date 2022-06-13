@@ -1,15 +1,14 @@
 import React from "react";
-import book from "../../assets/icons/Group 5.svg";
+import book from "../../../assets/icons/Group 5.svg";
 import { useState } from "react";
 import "./Login.css";
-import UserRegistrationService from "../../services/UserRegistrationService";
+import UserRegistrationService from "../../../services/UserRegistrationService";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
-
-export default function Login() {
+export default function Login(props) {
   const [success, setSuccess] = useState("");
   const [failure, setFailure] = useState("");
   const [user, setUser] = useState({
@@ -34,10 +33,13 @@ export default function Login() {
     UserRegistrationService.loginUser(loginUser)
       .then((response) => {
         // alert(response.data.message);
-        console.log(response)
+        console.log(response);
         let token = response.data.data;
-        localStorage.setItem('token',token);
+        localStorage.setItem("token", token);
         setSuccess(response.data.message);
+        props.history.push({
+          pathname:"/home"
+        })
       })
       .catch((error) => {
         alert(error.response.data.data);
@@ -47,26 +49,41 @@ export default function Login() {
   return (
     <div>
       <header className="header-content header">
-        <div className="logo-content">
+        <div className="logo-content-home">
           <img
             src={book}
             alt="logo-content"
             className="logo-content-img"
             width=""
           />
+          <span className='logo-content-home-links'>
+          <Link className='login-link link' to="/login">login </Link>  
+           <Link className='signUp-link link' to="/signUp">signup</Link>
+          </span>
+         
         </div>
-        
+       
       </header>
 
       <div className="form-content-login">
         {success && (
-          <Alert  onClose={() => {setSuccess("")}} severity="success">
+          <Alert
+            onClose={() => {
+              setSuccess("");
+            }}
+            severity="success"
+          >
             {success}
           </Alert>
         )}
 
         {failure && (
-          <Alert onClose={() => {setFailure("")}} severity="error">
+          <Alert
+            onClose={() => {
+              setFailure("");
+            }}
+            severity="error"
+          >
             {failure}
           </Alert>
         )}
@@ -75,7 +92,6 @@ export default function Login() {
             <div className="form-head">BookStore Login</div>
           </div>
           <div className="row-content-login">
-           
             <TextField
               required
               type="text"
@@ -87,7 +103,6 @@ export default function Login() {
             />
           </div>
           <div className="row-content-login">
-           
             <TextField
               id="outlined-password-input"
               label="Password *"
@@ -100,8 +115,6 @@ export default function Login() {
           </div>
 
           <div className="row-content-login">
-           
-
             <Button
               type="submit"
               className="login"
@@ -111,10 +124,13 @@ export default function Login() {
               Login
             </Button>
           </div>
-          <div className="row-content-login">
-            <Link to="/signUp" className="link">
-              Click Here to SignUp
+          <div className="row-content-login links">
+            <Link  to="/signUp" className="link">
+              SignUp
             </Link>
+            <div>
+              <Link className="link" to="/forgotPassword">Forgot Password?</Link>
+            </div>
           </div>
         </form>
       </div>
