@@ -5,8 +5,14 @@ import UserRegistrationService from "../../../services/UserRegistrationService";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import DirectionSnackbar from "../../utils/SnakBar";
 
 export default function SignUp() {
+  const [snackBar, setsnackBar] = useState({
+    snackFlag: false,
+    snackMessage: "",
+    severity: "",
+  });
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -34,10 +40,22 @@ export default function SignUp() {
     UserRegistrationService.registerUser(userData)
       .then((response) => {
         alert(response);
+        setsnackBar({
+          ...snackBar,
+          snackFlag: true,
+          snackMessage: response.data.message,
+          severity: "success",
+        });
         alert("submitted successfully");
       })
       .catch((response) => {
         alert(response.response.data.data);
+        setsnackBar({
+          ...snackBar,
+          snackFlag: true,
+          snackMessage: response.response.data.data,
+          severity: "error",
+        });
       });
   };
 
@@ -63,6 +81,10 @@ export default function SignUp() {
       isVerified: false,
     });
   };
+
+  const snakCloseHandler = (event,reason)=>{
+
+  }
 
   return (
     <div>
@@ -207,6 +229,9 @@ export default function SignUp() {
           </div>
         </form>
       </div>
+      {snackBar.snackFlag && 
+        <DirectionSnackbar message={snackBar.snackMessage} severity={snackBar.severity} flag={snackBar.snackFlag} />
+      }
     </div>
   );
 }

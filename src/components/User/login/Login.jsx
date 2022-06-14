@@ -9,11 +9,16 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
 export default function Login(props) {
-  const [success, setSuccess] = useState("");
-  const [failure, setFailure] = useState("");
+  
   const [user, setUser] = useState({
     email: "",
     password: "",
+  });
+
+  const [alerts, setAlerts] = useState({
+    severity: "",
+    message: "",
+    alertFlag: false,
   });
 
   const handleLoginInput = (e) => {
@@ -36,15 +41,31 @@ export default function Login(props) {
         console.log(response);
         let token = response.data.data;
         localStorage.setItem("token", token);
-        setSuccess(response.data.message);
+        setAlerts({
+          ...alerts,
+          severity: "success",
+          message: response.data.message,
+          alertFlag: true,
+        });
         props.history.push({
-          pathname:"/home"
-        })
+          pathname: "/home",
+        });
       })
       .catch((error) => {
         alert(error.response.data.data);
-        setFailure(error.response.data.data);
+        setAlerts({
+          ...alerts,
+          severity: "error",
+          message: error.response.data.data,
+          alertFlag: true,
+        });
+        
       });
+  };
+
+  const alertCloseHandler = (event, reason) => {
+    if (reason == "clickAway") return;
+    setAlerts({ ...alerts, alertFlag: false });
   };
   return (
     <div>
@@ -56,37 +77,24 @@ export default function Login(props) {
             className="logo-content-img"
             width=""
           />
-          <span className='logo-content-home-links'>
-          <Link className='login-link link' to="/login">login </Link>  
-           <Link className='signUp-link link' to="/signUp">signup</Link>
+          <span className="logo-content-home-links">
+            <Link className="login-link link" to="/login">
+              login{" "}
+            </Link>
+            <Link className="signUp-link link" to="/signUp">
+              signup
+            </Link>
           </span>
-         
         </div>
-       
       </header>
 
       <div className="form-content-login">
-        {success && (
-          <Alert
-            onClose={() => {
-              setSuccess("");
-            }}
-            severity="success"
-          >
-            {success}
+        {alerts.alertFlag && (
+          <Alert onClose={alertCloseHandler} severity={alerts.severity}>
+            {alerts.message}
           </Alert>
         )}
 
-        {failure && (
-          <Alert
-            onClose={() => {
-              setFailure("");
-            }}
-            severity="error"
-          >
-            {failure}
-          </Alert>
-        )}
         <form action="" className="form-login" onSubmit={loginHandler}>
           <div className="form-head-content">
             <div className="form-head">BookStore Login</div>
@@ -125,11 +133,13 @@ export default function Login(props) {
             </Button>
           </div>
           <div className="row-content-login links">
-            <Link  to="/signUp" className="link">
+            <Link to="/signUp" className="link">
               SignUp
             </Link>
             <div>
-              <Link className="link" to="/forgotPassword">Forgot Password?</Link>
+              <Link className="link" to="/forgotPassword">
+                Forgot Password?
+              </Link>
             </div>
           </div>
         </form>

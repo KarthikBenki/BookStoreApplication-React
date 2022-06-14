@@ -6,6 +6,8 @@ import ResetPassword from "./components/User/reset password/ResetPassword";
 import ForgotPassword from "./components/User/forgot password/ForgotPassword";
 import Home from "./components/User/home/Home";
 import AddBook from "./components/Book/AddBook/AddBook";
+import { Snackbar } from "@mui/material";
+import DirectionSnackbar from "./components/utils/SnakBar";
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
       <Route path='/forgotPassword' component={ForgotPassword}></Route>
       <Route path='/home' component={Home}></Route>
       <Route path='/addBook' component={AddBook}></Route>
+      <Route path='/snack' component={DirectionSnackbar}></Route>
       {/* <Route exact path="/form/:id" component={Form}></Route> */}
     </Switch>
  </BrowserRouter>
