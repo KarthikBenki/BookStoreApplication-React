@@ -39,14 +39,13 @@ export default function SignUp() {
 
     UserRegistrationService.registerUser(userData)
       .then((response) => {
-        alert(response);
         setsnackBar({
           ...snackBar,
           snackFlag: true,
           snackMessage: response.data.message,
           severity: "success",
         });
-        alert("submitted successfully");
+        alert(response.data.message);
       })
       .catch((response) => {
         alert(response.response.data.data);
@@ -81,10 +80,6 @@ export default function SignUp() {
       isVerified: false,
     });
   };
-
-  const snakCloseHandler = (event,reason)=>{
-
-  }
 
   return (
     <div>
@@ -229,9 +224,13 @@ export default function SignUp() {
           </div>
         </form>
       </div>
-      {snackBar.snackFlag && 
-        <DirectionSnackbar message={snackBar.snackMessage} severity={snackBar.severity} flag={snackBar.snackFlag} />
-      }
+      {snackBar.snackFlag && (
+        <DirectionSnackbar
+          message={snackBar.snackMessage}
+          severity={snackBar.severity}
+          flag={snackBar.snackFlag}
+        />
+      )}
     </div>
   );
 }

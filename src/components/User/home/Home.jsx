@@ -20,7 +20,7 @@ export default function Home() {
     BookService.getAllBooks()
       .then((response) => {
         setBookDetails(response.data.data);
-        console.log(bookDetails);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -37,8 +37,8 @@ export default function Home() {
             width=""
           />
           <span className="logo-content-home-links">
-            <Link className="login-link link" to="/login">
-              login{" "}
+            <Link className="login-link link" to="/addBook">
+              AddBook{" "}
             </Link>
             <Link className="signUp-link link" to="/signUp">
               signup
@@ -47,7 +47,7 @@ export default function Home() {
         </div>
       </header>
 
-      <h1>Welcome to Dashboard</h1>
+      <h1>Welcome to Book Store {localStorage.getItem('email')}</h1>
 
       <div className="wrapper">
         {

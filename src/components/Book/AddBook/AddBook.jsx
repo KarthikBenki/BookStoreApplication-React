@@ -11,24 +11,89 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
+import BookService from "../../../services/BookService";
+import DirectionSnackbar from "../../utils/SnakBar";
 
 export default function AddBook() {
-  const [rating, setRating] = useState(1);
+  const [snackBar, setsnackBar] = useState({
+    snackFlag: false,
+    snackMessage: "",
+    severity: "",
+  });
+  const [bookDetails, setBookDetails] = useState({
+    authorName: "",
+    bookName: "",
+    bookPrice: 0,
+    description: "",
+    imageURL: "",
+    publishingYear: 0,
+    quantity: 0,
+    rating: 1,
+  });
 
-  const [bookDetails,setBookDetails] = useState({
-    "authorName": "",
-  "bookName": "",
-  "bookPrice": 0,
-  "description": "",
-  "imageURL": "",
-  "publishingYear": 0,
-  "quantity": 0,
-  "rating": 0
-  })
+  const addBookHandler = (e) => {
+    e.preventDefault();
+    let book = {
+      authorName: bookDetails.authorName,
+      bookName: bookDetails.bookName,
+      bookPrice: bookDetails.bookPrice,
+      description: bookDetails.description,
+      imageURL: bookDetails.imageURL,
+      publishingYear: bookDetails.publishingYear,
+      quantity: bookDetails.quantity,
+      rating: bookDetails.rating,
+    };
 
-  const addBookHandler = (e)=>{
-    
-  }
+    let token = localStorage.getItem("token");
+    console.log(token);
+    BookService.addBook(book)
+    .then((response)=>{
+      console.log(response)
+      setsnackBar({
+        ...snackBar,
+        snackFlag: true,
+        snackMessage: response.data.message,
+        severity: "success",
+      });
+      alert(response.data.message)
+    })
+    .catch((error)=>{
+      console.log(error);
+      setsnackBar({
+        ...snackBar,
+        snackFlag: true,
+        snackMessage: error.response.data.message,
+        severity: "error",
+      });
+      alert(error.response.data.message)
+    });
+  };
+
+  const handleBookInput = (e) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    setBookDetails({
+      ...bookDetails,
+      [name]: value,
+    });
+    console.log(bookDetails);
+  };
+
+  const resetHandler = (e) => {
+    e.preventDefault();
+    setBookDetails({
+      ...bookDetails,
+      authorName: "",
+      bookName: "",
+      bookPrice: "",
+      description: "",
+      imageURL: "",
+      publishingYear: "",
+      quantity: "",
+      rating: 1,
+    });
+  };
+
   return (
     <div className="container-addbook">
       <header className="header-content header">
@@ -40,8 +105,8 @@ export default function AddBook() {
             width=""
           />
           <span className="logo-content-home-links">
-            <Link className="login-link link" to="/login">
-              login{" "}
+            <Link className="login-link link" to="/home">
+              home{" "}
             </Link>
             <Link className="signUp-link link" to="/signUp">
               signup
@@ -51,7 +116,12 @@ export default function AddBook() {
       </header>
 
       <div className="form-content">
-        <form action="#" className="form" onSubmit={addBookHandler}>
+        <form
+          action="#"
+          className="form"
+          onSubmit={addBookHandler}
+          onReset={resetHandler}
+        >
           <div className="form-head-content">
             <div className="form-head">BookStore AddBook</div>
           </div>
@@ -62,8 +132,8 @@ export default function AddBook() {
               type="text"
               placeholder="bookName*"
               name="bookName"
-              // value={user.firstName}
-              // onChange={handleUserInput}
+              value={bookDetails.bookName}
+              onChange={handleBookInput}
             />
             <TextField
               className="input"
@@ -71,8 +141,8 @@ export default function AddBook() {
               type="text"
               placeholder="authorName*"
               name="authorName"
-              // value={user.firstName}
-              // onChange={handleUserInput}
+              value={bookDetails.authorName}
+              onChange={handleBookInput}
             />
           </div>
 
@@ -84,16 +154,16 @@ export default function AddBook() {
               rows={4}
               name="description"
               placeholder="description"
+              value={bookDetails.description}
+              onChange={handleBookInput}
             />
 
             <div className="input">
               <Typography component="legend">Rating</Typography>
               <Rating
-                name="simple-controlled"
-                value={rating}
-                onChange={(event, newValue) => {
-                  setRating(newValue);
-                }}
+                name="rating"
+                value={bookDetails.rating}
+                onChange={handleBookInput}
               />
             </div>
           </div>
@@ -105,8 +175,9 @@ export default function AddBook() {
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-amount"
-                // value={values.amount}
-                // onChange={handleChange('amount')}
+                value={bookDetails.bookPrice}
+                name="bookPrice"
+                onChange={handleBookInput}
                 startAdornment={
                   <InputAdornment position="start">₹</InputAdornment>
                 }
@@ -120,8 +191,8 @@ export default function AddBook() {
               type="number"
               placeholder="Quantity*"
               name="quantity"
-              // value={user.firstName}
-              // onChange={handleUserInput}
+              value={bookDetails.quantity}
+              onChange={handleBookInput}
             />
           </div>
 
@@ -132,8 +203,8 @@ export default function AddBook() {
               type="year"
               placeholder="Publishing Year*"
               name="publishingYear"
-              // value={user.firstName}
-              // onChange={handleUserInput}
+              value={bookDetails.publishingYear}
+              onChange={handleBookInput}
             />
 
             <TextField
@@ -142,8 +213,8 @@ export default function AddBook() {
               type="text"
               placeholder="ImageURL*"
               name="imageURL"
-              // value={user.firstName}
-              // onChange={handleUserInput}
+              value={bookDetails.imageURL}
+              onChange={handleBookInput}
             />
           </div>
           <div className="row-content">
@@ -166,6 +237,9 @@ export default function AddBook() {
           </div>
         </form>
       </div>
+      {snackBar.snackFlag && 
+        <DirectionSnackbar message={snackBar.snackMessage} severity={snackBar.severity} flag={snackBar.snackFlag}  />
+      }
     </div>
   );
 }

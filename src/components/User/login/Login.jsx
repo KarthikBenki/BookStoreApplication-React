@@ -41,6 +41,7 @@ export default function Login(props) {
         console.log(response);
         let token = response.data.data;
         localStorage.setItem("token", token);
+        localStorage.setItem('email',user.email)
         setAlerts({
           ...alerts,
           severity: "success",
@@ -87,6 +88,8 @@ export default function Login(props) {
           </span>
         </div>
       </header>
+<div className="main">
+
 
       <div className="form-content-login">
         {alerts.alertFlag && (
@@ -143,6 +146,7 @@ export default function Login(props) {
             </div>
           </div>
         </form>
+      </div>
       </div>
     </div>
   );

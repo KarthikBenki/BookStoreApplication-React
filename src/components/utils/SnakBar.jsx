@@ -7,20 +7,20 @@ import Alert from "@mui/material/Alert";
 //   return <Slide {...props} direction="left" />;
 // }
 
-// function TransitionUp(props) {
-//   return <Slide {...props} direction="up" />;
-// }
-
-function TransitionRight(props) {
-  return <Slide {...props} direction="right" />;
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
 }
 
-// function TransitionDown(props) {
-//   return <Slide {...props} direction="down" />;
+// function TransitionRight(props) {
+//   return <Slide {...props} direction="right" />;
 // }
 
+function TransitionDown(props) {
+  return <Slide {...props} direction="down" />;
+}
+
 export default function DirectionSnackbar(props) {
-  const [open, setOpen] = React.useState(props.flag);
+  const [open, setOpen] = React.useState(true);
   const [transition, setTransition] = React.useState(undefined);
 
 //   const handleClick = (Transition) => () => {
@@ -37,6 +37,10 @@ export default function DirectionSnackbar(props) {
     setOpen(false);
   };
 
+  const handleOnClick=()=>{
+    setOpen(props.flag);
+  }
+
   return (
     <div>
       {/* <Button onClick={handleClick(TransitionLeft)}>Right</Button>
@@ -47,7 +51,7 @@ export default function DirectionSnackbar(props) {
       <Snackbar
         open={open}
         onClose={handleClose}
-        TransitionComponent={TransitionRight}
+        TransitionComponent={TransitionDown}
         message="I love snacks"
         key={transition ? transition.name : ""}
       >

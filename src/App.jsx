@@ -8,6 +8,7 @@ import Home from "./components/User/home/Home";
 import AddBook from "./components/Book/AddBook/AddBook";
 import { Snackbar } from "@mui/material";
 import DirectionSnackbar from "./components/utils/SnakBar";
+import DashBoardHomePage from "./components/DashBoardHomePage/DashBoardHomePage";
 
 
 function App() {
@@ -15,13 +16,14 @@ function App() {
     <BrowserRouter>
     <Switch>
       <Route exact path='/login' component={Login}></Route>
-      <Route exact path='/'  component={Home}></Route>
+      <Route exact path='/'  component={DashBoardHomePage}></Route>
       <Route path='/signUp' component={SignUp}></Route>
       <Route path='/resetPassword' component={ResetPassword}></Route>
       <Route path='/forgotPassword' component={ForgotPassword}></Route>
       <Route path='/home' component={Home}></Route>
       <Route path='/addBook' component={AddBook}></Route>
       <Route path='/snack' component={DirectionSnackbar}></Route>
+      <Route path='/dashHome' component={DashBoardHomePage}></Route>
       {/* <Route exact path="/form/:id" component={Form}></Route> */}
     </Switch>
  </BrowserRouter>
