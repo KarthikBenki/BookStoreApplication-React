@@ -8,6 +8,22 @@ class BookService {
     
     return axios.get(`${this.baseUrl}` + "/getAllBooks");
   }
+
+  getAllInIncreasingOrder() {
+    return axios.get(`${this.baseUrl}` + "/getBookAscending");
+  }
+
+  getAllInDecreasingOrder(){
+    return axios.get(`${this.baseUrl}` + "/getBookDescending");
+  }
+
+  getBooksByPublishingYear(){
+    return axios.get(`${this.baseUrl}` + "/getBooksByPublishingYear");
+  }
+
+  getBooksByNewLaunch(){
+    return axios.get(`${this.baseUrl}` + "/getBooksByNewLaunch");
+  }
 //for request header authorisation
   authAxios = axios.create({
     baseURL:this.baseUrl,

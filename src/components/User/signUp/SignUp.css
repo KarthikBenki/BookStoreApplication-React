@@ -16,7 +16,7 @@
 
 .form-content{
     border: 1px solid black;
-    width: 60%;
+    width: 35%;
     margin: 0 auto;
     margin-top: 50px;
     
@@ -26,7 +26,6 @@
     background: #A03037 0% 0% no-repeat padding-box;
     color: white;
     padding: 10px;
-    height: 30px;
     display: flex;
    align-items: center;
    font-style: italic;

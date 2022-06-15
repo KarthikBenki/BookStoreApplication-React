@@ -8,23 +8,63 @@ import book2 from "../../../assets/images/bookimages/Image 18.png";
 import book3 from "../../../assets/images/bookimages/Image 22.png";
 import BookService from "../../../services/BookService";
 import { useState } from "react";
+import BasicSelect from "../../utils/Select";
 
 export default function Home() {
   const [bookDetails, setBookDetails] = useState([]);
+  const [sortType, setSortType] = useState('');
 
   useEffect(() => {
     fetchBookDetails();
   });
 
   function fetchBookDetails() {
+    if(sortType==="DATABASE"||sortType==="")
     BookService.getAllBooks()
       .then((response) => {
         setBookDetails(response.data.data);
-        
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  const getSelectValue = (value)=>{
+    setSortType(value)
+    if(value==="ASCENDING"){
+      BookService.getAllInIncreasingOrder()
+      .then((response) => {
+        setBookDetails(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else if(value ==="DESCENDING"){
+      BookService.getAllInDecreasingOrder()
+      .then((response) => {
+        setBookDetails(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else if(value ==="NEW_LAUNCH"){
+      BookService.getBooksByNewLaunch()
+      .then((response) => {
+        setBookDetails(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else if(value ==="PUBLISHED_YEAR"){
+      BookService.getBooksByPublishingYear()
+      .then((response) => {
+        setBookDetails(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
   }
   return (
     <div>
@@ -46,37 +86,36 @@ export default function Home() {
           </span>
         </div>
       </header>
-
-      <h1>Welcome to Book Store {localStorage.getItem('email')}</h1>
+      <div className="welcome_header">
+      <h2>Welcome to Book Store {localStorage.getItem("email")}</h2>
+      </div>
+      
+      <div className="book_count_sort_header">
+        <span className="books__count">
+          {"Books Count : " + bookDetails.length}
+        </span>
+        <BasicSelect
+          headerName="Search By Relevance"
+          className="home__select"
+          getSelectValue = {getSelectValue}
+        />
+      </div>
 
       <div className="wrapper">
-        {
-          bookDetails.map((book)=>{
-              return (
-                <Card image={book.imageURL}
-                 title={book.bookName}
-                  description = {book.description}
-                  rating={book.rating}
-                  quantity={book.quantity} 
-                  id={book.bookId}
-                  price={book.bookPrice}
-                  author={book.authorName}/>
-                  
-                  
-                 
-              )
-          })
-        }
-        {/* <Card image={book1} title="Attitude" />
-        <Card image={book2} title="Peace for Money" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" />
-        <Card image={book3} title="Cool Summer" /> */}
+        {bookDetails.map((book) => {
+          return (
+            <Card
+              image={book.imageURL}
+              title={book.bookName}
+              description={book.description}
+              rating={book.rating}
+              quantity={book.quantity}
+              id={book.bookId}
+              price={book.bookPrice}
+              author={book.authorName}
+            />
+          );
+        })}
       </div>
     </div>
   );

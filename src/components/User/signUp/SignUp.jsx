@@ -75,6 +75,7 @@ export default function SignUp() {
       dob: "",
       email: "",
       password: "",
+      confirmPassword:"",
       phone: "",
       createdDate: "",
       isVerified: false,
@@ -162,8 +163,8 @@ export default function SignUp() {
               type="password"
               placeholder="Confirm password*"
               label="Confirm password*"
-              name="password"
-              value={user.password}
+              name="confirmPassword"
+              value={user.confirmPassword}
               onChange={handleUserInput}
             />
             <TextField

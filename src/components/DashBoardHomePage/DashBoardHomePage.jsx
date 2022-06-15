@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import book from "../../assets/icons/Group 5.svg";
 import Footer from "../Footer/Footer";
 
+
 import './DashBoardHomePage.css'
 
 const DashBoardHomePage = (props) =>{
@@ -28,6 +29,7 @@ const DashBoardHomePage = (props) =>{
           </span>
         </div>
       </header>
+      
       <div className="main-content">
 
       </div>
