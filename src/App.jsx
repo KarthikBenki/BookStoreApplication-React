@@ -12,8 +12,11 @@ import DashBoardHomePage from "./components/DashBoardHomePage/DashBoardHomePage"
 import Dummy from "./components/extras/Dummy";
 
 
+
 function App() {
   return (
+    <>
+   
     <BrowserRouter>
     <Switch>
       <Route exact path='/login' component={Login}></Route>
@@ -29,7 +32,8 @@ function App() {
       {/* <Route exact path="/form/:id" component={Form}></Route> */}
     </Switch>
  </BrowserRouter>
-
+ 
+ </>
  
 
   );

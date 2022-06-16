@@ -77,10 +77,10 @@ export default function Home() {
             width=""
           />
           <span className="logo-content-home-links">
-            <Link className="login-link link" to="/addBook">
+            <Link style={{marginRight:'10px'}} className="login-link link" to="/addBook">
               AddBook{" "}
             </Link>
-            <Link className="signUp-link link" to="/signUp">
+            <Link style={{marginRight:'10px'}} className="signUp-link link" to="/signUp">
               signup
             </Link>
           </span>

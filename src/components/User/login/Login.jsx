@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import { Paper } from "@mui/material";
 
 export default function Login(props) {
-  
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -41,7 +41,7 @@ export default function Login(props) {
         console.log(response);
         let token = response.data.data;
         localStorage.setItem("token", token);
-        localStorage.setItem('email',user.email)
+        localStorage.setItem("email", user.email);
         setAlerts({
           ...alerts,
           severity: "success",
@@ -60,12 +60,11 @@ export default function Login(props) {
           message: error.response.data.data,
           alertFlag: true,
         });
-        
       });
   };
 
   const alertCloseHandler = (event, reason) => {
-    if (reason == "clickAway") return;
+    if (reason === "clickAway") return;
     setAlerts({ ...alerts, alertFlag: false });
   };
   return (
@@ -88,65 +87,63 @@ export default function Login(props) {
           </span>
         </div>
       </header>
-<div className="main">
+      <div className="main">
+        <Paper elevation={20} className="form-content-login">
+          {alerts.alertFlag && (
+            <Alert onClose={alertCloseHandler} severity={alerts.severity}>
+              {alerts.message}
+            </Alert>
+          )}
 
-
-      <div className="form-content-login">
-        {alerts.alertFlag && (
-          <Alert onClose={alertCloseHandler} severity={alerts.severity}>
-            {alerts.message}
-          </Alert>
-        )}
-
-        <form action="" className="form-login" onSubmit={loginHandler}>
-          <div className="form-head-content">
-            <div className="form-head">BookStore Login</div>
-          </div>
-          <div className="row-content-login">
-            <TextField
-              required
-              type="text"
-              id="outlined-required"
-              label="Email"
-              name="email"
-              className="input-login"
-              onChange={handleLoginInput}
-            />
-          </div>
-          <div className="row-content-login">
-            <TextField
-              id="outlined-password-input"
-              label="Password *"
-              type="password"
-              name="password"
-              className="input-login"
-              autoComplete="current-password"
-              onChange={handleLoginInput}
-            />
-          </div>
-
-          <div className="row-content-login">
-            <Button
-              type="submit"
-              className="login"
-              variant="contained"
-              color="success"
-            >
-              Login
-            </Button>
-          </div>
-          <div className="row-content-login links">
-            <Link to="/signUp" className="link">
-              SignUp
-            </Link>
-            <div>
-              <Link className="link" to="/forgotPassword">
-                Forgot Password?
-              </Link>
+          <form action="" className="form-login" onSubmit={loginHandler}>
+            <div className="form-head-content">
+              <div className="form-head">BookStore Login</div>
             </div>
-          </div>
-        </form>
-      </div>
+            <div className="row-content-login">
+              <TextField
+                required
+                type="text"
+                id="outlined-required"
+                label="Email"
+                name="email"
+                className="input-login"
+                onChange={handleLoginInput}
+              />
+            </div>
+            <div className="row-content-login">
+              <TextField
+                id="outlined-password-input"
+                label="Password *"
+                type="password"
+                name="password"
+                className="input-login"
+                autoComplete="current-password"
+                onChange={handleLoginInput}
+              />
+            </div>
+
+            <div className="row-content-login">
+              <Button
+                type="submit"
+                className="login"
+                variant="contained"
+                color="success"
+              >
+                Login
+              </Button>
+            </div>
+            <div className="row-content-login links">
+              <Link to="/signUp" className="link">
+                SignUp
+              </Link>
+              <div>
+                <Link className="link" to="/forgotPassword">
+                  Forgot Password?
+                </Link>
+              </div>
+            </div>
+          </form>
+        </Paper>
       </div>
     </div>
   );
