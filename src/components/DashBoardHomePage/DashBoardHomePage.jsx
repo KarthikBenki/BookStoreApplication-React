@@ -1,6 +1,6 @@
 import React from "react";
 import book from "../../assets/icons/Group 5.svg";
-import { Button } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import "./DashBoardHomePage.css";
 import { Container } from "@mui/system";
 
@@ -42,9 +42,12 @@ const DashBoardHomePage = (props) => {
           </div>
         </header>
 
-        <div className="main-content">
-          
-        </div>
+        <Paper elevation={10} className="main-content">
+          <header>
+            <Typography variant="h2" component={'h1'}>Welcome To Book Store </Typography>
+          </header>
+         
+        </Paper>
       </div>
   
   );

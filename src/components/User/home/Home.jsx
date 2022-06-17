@@ -3,68 +3,80 @@ import book from "../../../assets/icons/Group 5.svg";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Card from "../../Book/Card/Card";
-import book1 from "../../../assets/images/bookimages/Image 11.png";
-import book2 from "../../../assets/images/bookimages/Image 18.png";
-import book3 from "../../../assets/images/bookimages/Image 22.png";
+
 import BookService from "../../../services/BookService";
 import { useState } from "react";
 import BasicSelect from "../../utils/Select";
+import { TextField, Toolbar } from "@mui/material";
 
 export default function Home() {
   const [bookDetails, setBookDetails] = useState([]);
-  const [sortType, setSortType] = useState('');
+  const [sortType, setSortType] = useState("");
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     fetchBookDetails();
   });
 
   function fetchBookDetails() {
-    if(sortType==="DATABASE"||sortType==="")
-    BookService.getAllBooks()
-      .then((response) => {
-        setBookDetails(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    
+    if(filter==="")
+    if (sortType === "DATABASE" || sortType === "")
+      BookService.getAllBooks()
+        .then((response) => {
+          setBookDetails(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 
-  const getSelectValue = (value)=>{
-    setSortType(value)
-    if(value==="ASCENDING"){
+  const getSelectValue = (value) => {
+    setSortType(value);
+    if (value === "ASCENDING") {
       BookService.getAllInIncreasingOrder()
-      .then((response) => {
-        setBookDetails(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }else if(value ==="DESCENDING"){
+        .then((response) => {
+          console.log(response);
+          setBookDetails(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (value === "DESCENDING") {
       BookService.getAllInDecreasingOrder()
-      .then((response) => {
-        setBookDetails(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }else if(value ==="NEW_LAUNCH"){
+        .then((response) => {
+          setBookDetails(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (value === "NEW_LAUNCH") {
       BookService.getBooksByNewLaunch()
-      .then((response) => {
-        setBookDetails(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }else if(value ==="PUBLISHED_YEAR"){
+        .then((response) => {
+          setBookDetails(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (value === "PUBLISHED_YEAR") {
       BookService.getBooksByPublishingYear()
-      .then((response) => {
+        .then((response) => {
+          setBookDetails(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const searchHandler = (e) =>{
+      e.preventDefault();
+      setFilter(e.target.value);
+      BookService.getFilterBooks(filter).then((response)=>{
         setBookDetails(response.data.data);
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.log(error);
       });
-    }
-
   }
   return (
     <div>
@@ -76,20 +88,38 @@ export default function Home() {
             className="logo-content-img"
             width=""
           />
+
+          <div className="search-bar">
+            <input
+              className="search"
+              placeholder="Search..."
+              name="filter"
+              value={filter}
+              onChange={searchHandler}
+            ></input>
+          </div>
           <span className="logo-content-home-links">
-            <Link style={{marginRight:'10px'}} className="login-link link" to="/addBook">
+            <Link
+              style={{ marginRight: "10px" }}
+              className="login-link link"
+              to="/addBook"
+            >
               AddBook{" "}
             </Link>
-            <Link style={{marginRight:'10px'}} className="signUp-link link" to="/signUp">
+            <Link
+              style={{ marginRight: "10px" }}
+              className="signUp-link link"
+              to="/signUp"
+            >
               signup
             </Link>
           </span>
         </div>
       </header>
       <div className="welcome_header">
-      <h2>Welcome to Book Store {localStorage.getItem("email")}</h2>
+        <h2>Welcome to Book Store {localStorage.getItem("email")}</h2>
       </div>
-      
+
       <div className="book_count_sort_header">
         <span className="books__count">
           {"Books Count : " + bookDetails.length}
@@ -97,7 +127,7 @@ export default function Home() {
         <BasicSelect
           headerName="Search By Relevance"
           className="home__select"
-          getSelectValue = {getSelectValue}
+          getSelectValue={getSelectValue}
         />
       </div>
 

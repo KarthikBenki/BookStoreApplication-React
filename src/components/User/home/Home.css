@@ -54,3 +54,19 @@
     height: 3rem;
     margin-bottom: 20px;
 }
+
+.search{
+    background-image: url('https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/search.png');
+    background-position: center;
+    background-size: 5%;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-color: white;
+    width: 35rem;
+    height: 2.5rem;
+    border-radius: 10px;
+    padding-left: 2rem;
+    font-size: medium;
+   
+}
+

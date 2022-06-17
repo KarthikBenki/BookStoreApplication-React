@@ -37,6 +37,10 @@ class BookService {
     // return authAxios.post(`${this.baseUrl}` + "/addBook/",userData);
     return this.authAxios.post(`/addBook/`,userData);
   }
+
+  getFilterBooks(filter){
+    return axios.get(`${this.baseUrl}` + "/filterBySearch?name="+filter);
+  }
 }
 
 export default new BookService();

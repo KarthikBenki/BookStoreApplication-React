@@ -17,6 +17,15 @@
 
 .main-content{
   height: 52rem;
+  /* border: 1px solid black; */
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-image: url("https://www.adazing.com/wp-content/uploads/2019/02/open-book-clipart-03.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-clip: 
 }
 
 .logo-content-home-buttons{
