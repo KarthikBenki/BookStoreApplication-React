@@ -43,6 +43,10 @@ function Cart(props) {
     });
   };
 
+  const placeOrderHandler = () => {
+    props.history.push({ pathname: "/placeOrder" });
+  };
+
   return (
     <div>
       <header className="header">
@@ -120,7 +124,9 @@ function Cart(props) {
       </div>
       <div className="place__order">
         {cartDetails.length != 0 && (
-          <Button variant="contained">PLACE ORDER</Button>
+          <Button onClick={placeOrderHandler} variant="contained">
+            PLACE ORDER
+          </Button>
         )}
       </div>
     </div>
