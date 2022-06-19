@@ -43,8 +43,9 @@ const DashBoardHomePage = (props) => {
         </header>
 
         <Paper elevation={10} className="main-content">
-          <header>
-            <Typography variant="h2" component={'h1'}>Welcome To Book Store </Typography>
+          <header style={{paddingLeft:"10px"}}>
+            <Typography sx={{color:"blue"}}  variant="h2" component={'h1'}>Welcome To Book Store </Typography>
+            <Typography sx={{color:"black"}} variant="h3" component={'overline'}>A writer only begins a book, A Reader Finishes it. </Typography>
           </header>
          
         </Paper>

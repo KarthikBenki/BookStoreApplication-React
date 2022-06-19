@@ -46,6 +46,7 @@ export default function SignUp() {
           severity: "success",
         });
         alert(response.data.message);
+        resetHandler();
       })
       .catch((response) => {
         alert(response.response.data.data);
@@ -65,8 +66,7 @@ export default function SignUp() {
     console.log([name] + " ", value);
   };
 
-  const resetHandler = (e) => {
-    e.preventDefault();
+  const resetHandler = () => {
     setUser({
       ...user,
       firstName: "",
@@ -75,7 +75,7 @@ export default function SignUp() {
       dob: "",
       email: "",
       password: "",
-      confirmPassword:"",
+      confirmPassword: "",
       phone: "",
       createdDate: "",
       isVerified: false,

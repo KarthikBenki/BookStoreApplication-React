@@ -21,11 +21,15 @@
   width: 75%;
   margin: 0 auto;
   margin-top: 50px;
-  background-image: url("https://www.adazing.com/wp-content/uploads/2019/02/open-book-clipart-03.png");
-  background-size: contain;
+  background-image: url("https://cdn.pixabay.com/photo/2015/06/02/12/59/book-794978__340.jpg");
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-clip: 
+ 
+}
+
+.main-content.Typography{
+  margin: 0 auto;
 }
 
 .logo-content-home-buttons{

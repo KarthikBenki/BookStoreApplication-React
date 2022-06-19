@@ -7,7 +7,7 @@ import Card from "../../Book/Card/Card";
 import BookService from "../../../services/BookService";
 import { useState } from "react";
 import BasicSelect from "../../utils/Select";
-import { TextField, Toolbar } from "@mui/material";
+import cart from "../../../assets/icons/trolley.png";
 
 export default function Home() {
   const [bookDetails, setBookDetails] = useState([]);
@@ -19,16 +19,15 @@ export default function Home() {
   });
 
   function fetchBookDetails() {
-    
-    if(filter==="")
-    if (sortType === "DATABASE" || sortType === "")
-      BookService.getAllBooks()
-        .then((response) => {
-          setBookDetails(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (filter === "")
+      if (sortType === "DATABASE" || sortType === "")
+        BookService.getAllBooks()
+          .then((response) => {
+            setBookDetails(response.data.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
   }
 
   const getSelectValue = (value) => {
@@ -69,15 +68,17 @@ export default function Home() {
     }
   };
 
-  const searchHandler = (e) =>{
-      e.preventDefault();
-      setFilter(e.target.value);
-      BookService.getFilterBooks(filter).then((response)=>{
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setFilter(e.target.value);
+    BookService.getFilterBooks(filter)
+      .then((response) => {
         setBookDetails(response.data.data);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
       });
-  }
+  };
   return (
     <div>
       <header className="header-content header">
@@ -106,13 +107,9 @@ export default function Home() {
             >
               AddBook{" "}
             </Link>
-            <Link
-              style={{ marginRight: "10px" }}
-              className="signUp-link link"
-              to="/signUp"
-            >
-              signup
-            </Link>
+            <div className="cart-image-container">
+              <img className="cart-image" src={cart} alt="cart-img" />
+            </div>
           </span>
         </div>
       </header>
@@ -134,16 +131,18 @@ export default function Home() {
       <div className="wrapper">
         {bookDetails.map((book) => {
           return (
-            <Card
-              image={book.imageURL}
-              title={book.bookName}
-              description={book.description}
-              rating={book.rating}
-              quantity={book.quantity}
-              id={book.bookId}
-              price={book.bookPrice}
-              author={book.authorName}
-            />
+            <div key={book.bookId}>
+              <Card
+                image={book.imageURL}
+                title={book.bookName}
+                description={book.description}
+                rating={book.rating}
+                quantity={book.quantity}
+                id={book.bookId}
+                price={book.bookPrice}
+                author={book.authorName}
+              />
+            </div>
           );
         })}
       </div>

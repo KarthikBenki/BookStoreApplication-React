@@ -5,6 +5,12 @@ import book3 from "../../../assets/images/bookimages/Image 22.png";
 import "./Card.css";
 
 export default function Card(props) {
+  const cardHandler = (e) =>{
+    console.log(props.id)
+    console.log(props.title)
+    
+  }
+
   return (
     <div key={props.id} className="bookCard">
       <div className="card__body">
@@ -23,7 +29,7 @@ export default function Card(props) {
         <span className="card__rating"> {"rating: "+props.rating}</span>
       </div>
       <div className="card__button">
-        <button className="card__add_button">ADD TO BAG</button>
+        <button onClick={cardHandler} className="card__add_button">ADD TO BAG</button>
         <button className="card__wishlist_button">WISHLIST</button>
       </div>
     </div>

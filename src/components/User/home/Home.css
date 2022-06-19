@@ -39,6 +39,8 @@
     margin: 0 auto;
     margin-bottom: 30px;
     justify-content: space-between;
+    font-style: italic;
+    font-style: bold;
 }
 
 .home__select{
@@ -68,5 +70,10 @@
     padding-left: 2rem;
     font-size: medium;
    
+}
+
+.cart-image{
+    width: 25px;
+    margin-right: 20px;
 }
 

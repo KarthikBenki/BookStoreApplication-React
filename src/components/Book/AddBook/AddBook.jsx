@@ -14,7 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import BookService from "../../../services/BookService";
 import DirectionSnackbar from "../../utils/SnakBar";
 
-export default function AddBook() {
+export default function AddBook(props) {
   const [snackBar, setsnackBar] = useState({
     snackFlag: false,
     snackMessage: "",
@@ -56,6 +56,9 @@ export default function AddBook() {
         severity: "success",
       });
       alert(response.data.message)
+      props.history.push({
+        pathname:"/home"
+      })
     })
     .catch((error)=>{
       console.log(error);
