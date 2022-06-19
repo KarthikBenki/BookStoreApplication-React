@@ -10,6 +10,7 @@ import { Snackbar } from "@mui/material";
 import DirectionSnackbar from "./components/utils/SnakBar";
 import DashBoardHomePage from "./components/DashBoardHomePage/DashBoardHomePage";
 import Dummy from "./components/extras/Dummy";
+import Cart from "./components/Cart/Cart";
 
 
 
@@ -29,6 +30,7 @@ function App() {
       <Route path='/snack' component={DirectionSnackbar}></Route>
       <Route path='/dashHome' component={DashBoardHomePage}></Route>
       <Route path='/dummy' component={Dummy}></Route>
+      <Route path='/cart' component={Cart}></Route>
       {/* <Route exact path="/form/:id" component={Form}></Route> */}
     </Switch>
  </BrowserRouter>

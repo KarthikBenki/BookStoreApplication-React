@@ -15,6 +15,10 @@ class BookService{
     addBookToCart(bookId){
         return this.authAxios.post('/addBookToCart/'+bookId)
     }
+
+    getCartDetails(){
+        return axios.get(`${this.baseUrl}`+"/getAll")
+    }
 }
 
 export default new BookService();

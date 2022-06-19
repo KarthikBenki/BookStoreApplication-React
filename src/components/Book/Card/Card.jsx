@@ -40,8 +40,8 @@ export default function Card(props) {
         <span className="card__rating"> {"rating: "+props.rating}</span>
       </div>
       <div className="card__button">
-        <button onClick={cardHandler} className="card__add_button">ADD TO BAG</button>
-        <button className="card__wishlist_button">WISHLIST</button>
+        <button onClick={cardHandler} className="card__add_button">{props.button1}</button>
+        <button className="card__wishlist_button">{props.button2}</button>
       </div>
     </div>
   );
