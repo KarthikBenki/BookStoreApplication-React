@@ -3,12 +3,23 @@ import book1 from "../../../assets/images/bookimages/Image 11.png";
 import book2 from "../../../assets/images/bookimages/Image 18.png";
 import book3 from "../../../assets/images/bookimages/Image 22.png";
 import "./Card.css";
+import CartService from "../../../services/CartService";
 
 export default function Card(props) {
   const cardHandler = (e) =>{
+    const bookId = props.id;
     console.log(props.id)
     console.log(props.title)
-    
+    CartService.addBookToCart(bookId)
+    .then((response)=>{
+      console.log(response)
+      alert(response.data.message)
+    })
+    .catch((error)=>{
+      console.log(error)
+      alert(error.response.data.message)
+    })
+
   }
 
   return (
