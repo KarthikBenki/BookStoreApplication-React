@@ -7,11 +7,12 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+
 import book from "../../assets/icons/Group 5.svg";
 import Card from "@mui/material/Card";
 import CartService from "../../services/CartService";
 import { useState, useEffect } from "react";
-import './Cart.css'
+import "./Cart.css";
 
 function Cart(props) {
   const [cartDetails, setCartDetails] = useState([]);
@@ -23,7 +24,6 @@ function Cart(props) {
   const fetchCartDetails = () => {
     CartService.getCartDetails()
       .then((response) => {
-        console.log(response);
         setCartDetails(response.data.data);
       })
       .catch((error) => {
@@ -36,6 +36,13 @@ function Cart(props) {
       pathname: "/home",
     });
   };
+
+  const removeItemFromCart = (cartId) => {
+    CartService.deleteCartItem(cartId).then((response) => {
+      alert("deleted successfully");
+    });
+  };
+
   return (
     <div>
       <header className="header">
@@ -56,7 +63,6 @@ function Cart(props) {
               {" "}
               Home{" "}
             </Button>
-            
           </div>
         </div>
       </header>
@@ -70,7 +76,13 @@ function Cart(props) {
           return (
             <div key={i}>
               <div className="">
-                <Card sx={{ maxWidth: 200, marginBottom: "20px",marginRight:"20px" }}>
+                <Card
+                  sx={{
+                    maxWidth: 200,
+                    marginBottom: "20px",
+                    marginRight: "20px",
+                  }}
+                >
                   <div style={{ width: "8rem", margin: "0 auto" }}>
                     <CardMedia
                       component="img"
@@ -89,7 +101,11 @@ function Cart(props) {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button variant="contained" size="small">
+                    <Button
+                      onClick={() => removeItemFromCart(cartItem.cartId)}
+                      variant="contained"
+                      size="small"
+                    >
                       Remove
                     </Button>
                     <Button variant="contained" size="small">
@@ -103,7 +119,9 @@ function Cart(props) {
         })}
       </div>
       <div className="place__order">
-        <Button variant="contained">PLACE ORDER</Button>
+        {cartDetails.length != 0 && (
+          <Button variant="contained">PLACE ORDER</Button>
+        )}
       </div>
     </div>
   );

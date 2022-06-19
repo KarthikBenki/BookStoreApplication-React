@@ -3,7 +3,7 @@ import book from "../../../assets/icons/Group 5.svg";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Card from "../../Book/Card/Card";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import BookService from "../../../services/BookService";
 import { useState } from "react";
@@ -109,8 +109,9 @@ export default function Home() {
               AddBook{" "}
             </Link>
             <div className="cart-image-container">
-              <Link to="/cart"><img className="cart-image" src={cart} alt="cart-img" /></Link>
-              
+              <Link to="/cart">
+                <img className="cart-image" src={cart} alt="cart-img" />
+              </Link><span>{}</span>
             </div>
           </span>
         </div>
@@ -145,7 +146,6 @@ export default function Home() {
                 author={book.authorName}
                 button1="ADD TO BAG"
                 button2="WISHLIST"
-
               />
             </div>
           );

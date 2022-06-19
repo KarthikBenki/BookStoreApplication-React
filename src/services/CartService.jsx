@@ -19,6 +19,10 @@ class BookService{
     getCartDetails(){
         return axios.get(`${this.baseUrl}`+"/getAll")
     }
+
+    deleteCartItem(cartId){
+        return axios.delete(`${this.baseUrl}`+"/delete/"+cartId)
+    }
 }
 
 export default new BookService();
