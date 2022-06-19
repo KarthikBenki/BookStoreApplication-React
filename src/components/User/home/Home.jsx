@@ -14,6 +14,7 @@ export default function Home() {
   const [bookDetails, setBookDetails] = useState([]);
   const [sortType, setSortType] = useState("");
   const [filter, setFilter] = useState("");
+  let [cartCount,setCartCount] = useState(0)
 
   useEffect(() => {
     fetchBookDetails();
@@ -80,6 +81,12 @@ export default function Home() {
         console.log(error);
       });
   };
+
+  
+  const getCartCount=(count)=>{
+      setCartCount(count)
+  }
+
   return (
     <div>
       <header className="header-content header">
@@ -111,7 +118,7 @@ export default function Home() {
             <div className="cart-image-container">
               <Link to="/cart">
                 <img className="cart-image" src={cart} alt="cart-img" />
-              </Link><span>{}</span>
+              </Link><span style={{color:"white",fontStyle:"bold",fontSize:"20px"}}>{cartCount}</span>
             </div>
           </span>
         </div>
@@ -146,6 +153,7 @@ export default function Home() {
                 author={book.authorName}
                 button1="ADD TO BAG"
                 button2="WISHLIST"
+                getCartCount = {getCartCount}
               />
             </div>
           );

@@ -22,6 +22,9 @@ export default function Card(props) {
 
   }
 
+  
+
+
   return (
     <div key={props.id} className="bookCard">
       <div className="card__body">
