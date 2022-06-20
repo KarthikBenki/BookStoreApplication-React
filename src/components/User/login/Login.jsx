@@ -8,8 +8,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Paper } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
+
 
 export default function Login(props) {
+  const [role,setRole] = useState("")
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -24,6 +27,7 @@ export default function Login(props) {
   const handleLoginInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    
 
     setUser({ ...user, [name]: value });
     console.log(user);
@@ -48,9 +52,17 @@ export default function Login(props) {
           message: response.data.message,
           alertFlag: true,
         });
-        props.history.push({
-          pathname: "/home",
-        });
+        if(role==="seller"){
+          props.history.push({
+            pathname: "/addBook",
+          });
+        }
+        if(role==="user"){
+          props.history.push({
+            pathname: "/home",
+          });
+        }
+        
       })
       .catch((error) => {
         alert(error.response.data.data);
@@ -67,6 +79,12 @@ export default function Login(props) {
     if (reason === "clickAway") return;
     setAlerts({ ...alerts, alertFlag: false });
   };
+
+  const userSelector  = (e) =>{
+    let value = e.target.value
+      setRole(value)
+      console.log(value)
+  }
   return (
     <div>
       <header className="header-content header">
@@ -120,6 +138,18 @@ export default function Login(props) {
                 autoComplete="current-password"
                 onChange={handleLoginInput}
               />
+            </div>
+
+            <div className="row-content-login">
+              <label htmlFor="">
+                Seller<input type="checkbox"  value="seller" onChange={userSelector}  />
+                </label>
+                <label htmlFor="">
+                User<input type="checkbox" value="user" onChange={userSelector} />
+                </label>
+                
+              
+            
             </div>
 
             <div className="row-content-login">
