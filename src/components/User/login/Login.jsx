@@ -8,14 +8,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Paper } from "@mui/material";
-import Checkbox from '@mui/material/Checkbox';
-
+import Checkbox from "@mui/material/Checkbox";
 
 export default function Login(props) {
-  const [role,setRole] = useState("")
+  
   const [user, setUser] = useState({
     email: "",
     password: "",
+    role:"",
   });
 
   const [alerts, setAlerts] = useState({
@@ -27,7 +27,6 @@ export default function Login(props) {
   const handleLoginInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    
 
     setUser({ ...user, [name]: value });
     console.log(user);
@@ -38,6 +37,7 @@ export default function Login(props) {
     let loginUser = {
       email: user.email,
       password: user.password,
+      role:user.role
     };
     UserRegistrationService.loginUser(loginUser)
       .then((response) => {
@@ -52,17 +52,16 @@ export default function Login(props) {
           message: response.data.message,
           alertFlag: true,
         });
-        if(role==="seller"){
+        if (user.role === "seller") {
           props.history.push({
             pathname: "/addBook",
           });
         }
-        if(role==="user"){
+        if (user.role === "user") {
           props.history.push({
             pathname: "/home",
           });
         }
-        
       })
       .catch((error) => {
         alert(error.response.data.data);
@@ -80,11 +79,7 @@ export default function Login(props) {
     setAlerts({ ...alerts, alertFlag: false });
   };
 
-  const userSelector  = (e) =>{
-    let value = e.target.value
-      setRole(value)
-      console.log(value)
-  }
+  
   return (
     <div>
       <header className="header-content header">
@@ -142,14 +137,25 @@ export default function Login(props) {
 
             <div className="row-content-login">
               <label htmlFor="">
-                Seller<input type="checkbox"  value="seller" onChange={userSelector}  />
-                </label>
-                <label htmlFor="">
-                User<input type="checkbox" value="user" onChange={userSelector} />
-                </label>
-                
-              
-            
+                Seller
+                <input
+                  type="checkbox"
+                  name="role"
+                  value="seller"
+                  onChange={handleLoginInput}
+                  defaultValue="user"
+                />
+              </label>
+              <label htmlFor="">
+                User
+                <input
+                  type="checkbox"
+                  name="role"
+                  value="user"
+                  onChange={handleLoginInput}
+                  defaultValue="user"
+                />
+              </label>
             </div>
 
             <div className="row-content-login">
