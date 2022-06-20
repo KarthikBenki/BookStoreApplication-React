@@ -25,6 +25,7 @@ function Cart(props) {
     CartService.getCartDetails()
       .then((response) => {
         setCartDetails(response.data.data);
+        console.log(cartDetails);
       })
       .catch((error) => {
         console.log(error);
@@ -38,13 +39,16 @@ function Cart(props) {
   };
 
   const removeItemFromCart = (cartId) => {
-    CartService.deleteCartItem(cartId).then((response) => {
-      alert("deleted successfully");
-    });
+    CartService.deleteCartItem(cartId).then((response) => {});
   };
 
   const placeOrderHandler = () => {
     props.history.push({ pathname: "/placeOrder" });
+  };
+
+  const updateQuantity = (e, cartId) => {
+    let quantity = e.target.value;
+    CartService.updateCartQuantity(cartId, quantity);
   };
 
   return (
@@ -97,25 +101,35 @@ function Cart(props) {
                     />
                   </div>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {cartItem.bookDetailsModel.bookName}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {cartItem.bookDetailsModel.description}
-                    </Typography>
+                    <div>
+                      <Typography  variant="h6" component="div" sx={{height:"40px"}}>
+                        {cartItem.bookDetailsModel.bookName}
+                      </Typography>
+                    </div>
                   </CardContent>
-                  <CardActions>
-                    <Button
-                      onClick={() => removeItemFromCart(cartItem.cartId)}
-                      variant="contained"
-                      size="small"
-                    >
-                      Remove
-                    </Button>
-                    <Button variant="contained" size="small">
-                      Checkout
-                    </Button>
-                  </CardActions>
+                  <div className="cart_quantity">
+                    <label htmlFor="#">Quantity: </label>
+                    <input
+                      className="quantity_text"
+                      type="text"
+                      defaultValue={cartDetails[i].quantity}
+                      onChange={(e) => updateQuantity(e, cartItem.cartId)}
+                    />
+                  </div>
+                  <div>
+                    <CardActions>
+                      <Button
+                        onClick={() => removeItemFromCart(cartItem.cartId)}
+                        variant="contained"
+                        size="small"
+                      >
+                        Remove
+                      </Button>
+                      <Button variant="contained" size="small">
+                        Checkout
+                      </Button>
+                    </CardActions>
+                  </div>
                 </Card>
               </div>
             </div>

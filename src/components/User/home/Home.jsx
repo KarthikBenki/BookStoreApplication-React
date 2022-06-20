@@ -3,22 +3,39 @@ import book from "../../../assets/icons/Group 5.svg";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Card from "../../Book/Card/Card";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
 
 import BookService from "../../../services/BookService";
 import { useState } from "react";
 import BasicSelect from "../../utils/Select";
 import cart from "../../../assets/icons/trolley.png";
+import CartService from "../../../services/CartService";
+
+
 
 export default function Home() {
   const [bookDetails, setBookDetails] = useState([]);
   const [sortType, setSortType] = useState("");
   const [filter, setFilter] = useState("");
   let [cartCount,setCartCount] = useState(0)
+  const [cartDetails,setCartDetails] = useState([])
 
   useEffect(() => {
     fetchBookDetails();
+    fetchCartDetails();
   });
+
+  
+    const fetchCartDetails = () => {
+      CartService.getCartDetails()
+        .then((response) => {
+          setCartDetails(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+  
 
   function fetchBookDetails() {
     if (filter === "")
@@ -107,9 +124,9 @@ export default function Home() {
               onChange={searchHandler}
             ></input>
           </div>
-          <span className="logo-content-home-links">
+          <div className="logo-content-home-links">
             <Link
-              style={{ marginRight: "10px" }}
+              style={{ marginRight: "20px" }}
               className="login-link link"
               to="/addBook"
             >
@@ -118,9 +135,10 @@ export default function Home() {
             <div className="cart-image-container">
               <Link to="/cart">
                 <img className="cart-image" src={cart} alt="cart-img" />
-              </Link><span style={{color:"white",fontStyle:"bold",fontSize:"20px"}}>{cartCount}</span>
+              </Link>
+              <span className="cart_count_home" >{cartDetails.length}</span>
             </div>
-          </span>
+          </div>
         </div>
       </header>
       <div className="welcome_header">

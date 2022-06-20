@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class BookService{
+class CartService{
     baseUrl = "http://localhost:8080/cartApi";
 
 
@@ -23,6 +23,10 @@ class BookService{
     deleteCartItem(cartId){
         return axios.delete(`${this.baseUrl}`+"/delete/"+cartId)
     }
+
+    updateCartQuantity(cartId,quantity){
+        return axios.put(`${this.baseUrl}`+"/updateQuantity/"+cartId+"/"+quantity);
+    }
 }
 
-export default new BookService();
+export default new CartService();

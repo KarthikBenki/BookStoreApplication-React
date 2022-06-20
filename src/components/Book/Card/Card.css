@@ -91,7 +91,7 @@
 }
 
 .bookCard:hover {
-  transform: scale(1.2);
+  transform: scale(1.08);
   background-color: rgb(209, 208, 208);
 }
 
