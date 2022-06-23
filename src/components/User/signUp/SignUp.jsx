@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DirectionSnackbar from "../../utils/SnakBar";
+import homeImg from "../../../assets/icons/icons8-home-64.png";
 
-export default function SignUp() {
+export default function SignUp(props) {
   const [snackBar, setsnackBar] = useState({
     snackFlag: false,
     snackMessage: "",
@@ -93,12 +94,25 @@ export default function SignUp() {
             width=""
           />
           <span className="logo-content-home-links">
-            <Link className="login-link link" to="/login">
+            <Button sx={{color:"blue",backgroundColor:"yellow"}} variant="contained" className="login-link link" onClick={() => {
+                  props.history.push({
+                    pathname: "/login",
+                  });
+                }}>
               login{" "}
-            </Link>
-            <Link className="signUp-link link" to="/signUp">
-              signup
-            </Link>
+            </Button>
+            <div>
+              <img
+                src={homeImg}
+                alt=""
+                style={{ width: "50%", marginLeft: "20px",cursor:"pointer" }}
+                onClick={() => {
+                  props.history.push({
+                    pathname: "/dashHome",
+                  });
+                }}
+              />
+            </div>
           </span>
         </div>
       </header>

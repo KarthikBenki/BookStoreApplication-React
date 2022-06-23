@@ -13,6 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import BookService from "../../../services/BookService";
 import DirectionSnackbar from "../../utils/SnakBar";
+import { Paper } from "@mui/material";
 
 export default function AddBook(props) {
   const [snackBar, setsnackBar] = useState({
@@ -108,17 +109,37 @@ export default function AddBook(props) {
             width=""
           />
           <span className="logo-content-home-links">
-            <Link className="login-link link" to="/home">
-              home{" "}
-            </Link>
-            <Link className="signUp-link link" to="/signUp">
+          <Button
+              variant="contained"
+              className="login-link link"
+              
+              sx={{mr:"20px",ml:"10px"}}
+              onClick={() => {
+                props.history.push({
+                  pathname: "/login",
+                });
+              }}
+            >
+              login
+            </Button>
+            <Button
+              variant="contained"
+              className="signUp-link link"
+              
+              onClick={() => {
+                props.history.push({
+                  pathname: "/signUp",
+                });
+              }}
+            >
               signup
-            </Link>
+            </Button>
           </span>
         </div>
       </header>
 
       <div className="form-content">
+        <Paper elevation={10}>
         <form
           action="#"
           className="form"
@@ -227,18 +248,20 @@ export default function AddBook(props) {
               variant="contained"
               color="success"
             >
-              Add Book
+              AddBook
             </Button>
             <Button
               type="reset"
               className="reset-button button resetButton"
               variant="contained"
               color="success"
+              sx={{mb:"20px"}}
             >
               Reset
             </Button>
           </div>
         </form>
+        </Paper>
       </div>
       {snackBar.snackFlag && 
         <DirectionSnackbar message={snackBar.snackMessage} severity={snackBar.severity} flag={snackBar.snackFlag}  />

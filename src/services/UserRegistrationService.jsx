@@ -22,6 +22,10 @@ class UserRegistrationService{
         return axios.post(`${this.baseUrl}`+"/reset/password/"+token
         +"?enterPassword="+newPassword+"&"+"confirmPassword="+confirmPassword)
     }
+
+    verifyOtp = (otp)=>{
+        return axios.put(`${this.baseUrl}`+"/verify/email/"+otp);
+    }
 }
 
 export default new UserRegistrationService();

@@ -12,6 +12,7 @@ import DashBoardHomePage from "./components/DashBoardHomePage/DashBoardHomePage"
 import Dummy from "./components/extras/Dummy";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/Order/PlaceOrder";
+import FormDialog from "./components/User/Otp/Otp";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dummy" component={Dummy}></Route>
           <Route path="/cart" component={Cart}></Route>
           <Route path="/placeOrder" component={PlaceOrder}></Route>
+          <Route path="/otpVerify" component={FormDialog}></Route>
         </Switch>
       </BrowserRouter>
     </>

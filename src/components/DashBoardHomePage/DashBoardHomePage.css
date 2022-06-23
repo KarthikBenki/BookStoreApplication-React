@@ -16,21 +16,20 @@
 }
 
 .main-content{
-  height: 52rem;
+  height: 94vh;
   /* border: 1px solid black; */
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
-  margin-top: 50px;
-  background-image: url("https://cdn.pixabay.com/photo/2015/06/02/12/59/book-794978__340.jpg");
+  /* margin-top: 30px; */
+  background-image: url("https://miro.medium.com/max/1024/1*YL6OQomDrwujKx9jZp5NTQ.jpeg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+
  
 }
 
-.main-content.Typography{
-  margin: 0 auto;
-}
+
 
 .logo-content-home-buttons{
   display: flex;

@@ -8,14 +8,17 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Paper } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
+import homeImg from "../../../assets/icons/icons8-home-64.png";
+import FormDialog from "../Otp/Otp";
+
 
 export default function Login(props) {
-  
+  const [otpVerify,setOtpVerify]=useState(false);
+  const [open,setOpen]=useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
-    role:"",
+    role: "",
   });
 
   const [alerts, setAlerts] = useState({
@@ -37,12 +40,13 @@ export default function Login(props) {
     let loginUser = {
       email: user.email,
       password: user.password,
-      role:user.role
+      role: user.role,
     };
     UserRegistrationService.loginUser(loginUser)
       .then((response) => {
         // alert(response.data.message);
         console.log(response);
+        setOtpVerify(false);
         let token = response.data.data;
         localStorage.setItem("token", token);
         localStorage.setItem("email", user.email);
@@ -64,6 +68,10 @@ export default function Login(props) {
         }
       })
       .catch((error) => {
+        if(error.response.data.data==="Please verify your email before proceeding"){
+          setOtpVerify(true);
+          
+        }
         alert(error.response.data.data);
         setAlerts({
           ...alerts,
@@ -79,7 +87,11 @@ export default function Login(props) {
     setAlerts({ ...alerts, alertFlag: false });
   };
 
-  
+
+  const verifyHandler = ()=>{
+      setOpen(true);
+  }
+
   return (
     <div>
       <header className="header-content header">
@@ -91,12 +103,30 @@ export default function Login(props) {
             width=""
           />
           <span className="logo-content-home-links">
-            <Link className="login-link link" to="/login">
-              login{" "}
-            </Link>
-            <Link className="signUp-link link" to="/signUp">
+            <Button
+              variant="contained"
+              className="signUp-link link"
+              to="/signUp"
+              onClick={() => {
+                props.history.push({
+                  pathname: "/signUp",
+                });
+              }}
+            >
               signup
-            </Link>
+            </Button>
+            <div>
+              <img
+                src={homeImg}
+                alt=""
+                style={{ width: "50%", marginLeft: "20px",cursor:"pointer" }}
+                onClick={() => {
+                  props.history.push({
+                    pathname: "/dashHome",
+                  });
+                }}
+              />
+            </div>
           </span>
         </div>
       </header>
@@ -167,6 +197,16 @@ export default function Login(props) {
               >
                 Login
               </Button>
+
+              {otpVerify&&<Button
+                type="button"
+                className="login"
+                variant="text"
+                color="primary"
+                onClick={verifyHandler}
+              >
+                Verify
+              </Button>}
             </div>
             <div className="row-content-login links">
               <Link to="/signUp" className="link">
@@ -176,11 +216,13 @@ export default function Login(props) {
                 <Link className="link" to="/forgotPassword">
                   Forgot Password?
                 </Link>
+
               </div>
             </div>
           </form>
         </Paper>
       </div>
+      {otpVerify&&<FormDialog />}
     </div>
   );
 }

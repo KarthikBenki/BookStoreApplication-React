@@ -111,10 +111,13 @@ function Cart(props) {
                     <label htmlFor="#">Quantity: </label>
                     <input
                       className="quantity_text"
-                      type="text"
-                      defaultValue={cartDetails[i].quantity}
+                      type="number"
+                      defaultValue={cartItem.quantity}
                       onChange={(e) => updateQuantity(e, cartItem.cartId)}
                     />
+                  </div>
+                  <div className="cart_price">
+                  <label htmlFor="#">₹{cartItem.bookDetailsModel.bookPrice * cartItem.quantity} </label>
                   </div>
                   <div>
                     <CardActions>
@@ -137,7 +140,7 @@ function Cart(props) {
         })}
       </div>
       <div className="place__order">
-        {cartDetails.length != 0 && (
+        {cartDetails.length !== 0 && (
           <Button onClick={placeOrderHandler} variant="contained">
             PLACE ORDER
           </Button>

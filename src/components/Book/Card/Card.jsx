@@ -4,12 +4,11 @@ import book2 from "../../../assets/images/bookimages/Image 18.png";
 import book3 from "../../../assets/images/bookimages/Image 22.png";
 import "./Card.css";
 import CartService from "../../../services/CartService";
+import ratingImg from '../../../assets/icons/star.png'
 
 export default function Card(props) {
   const cardHandler = (e) =>{
     const bookId = props.id;
-    console.log(props.id)
-    console.log(props.title)
     CartService.addBookToCart(bookId)
     .then((response)=>{
       console.log(response)
@@ -40,7 +39,7 @@ export default function Card(props) {
           <span className="card__author">by {props.author}</span>
         </div>
         <span className="card__price">Rs.{props.price}</span>
-        <span className="card__rating"> {"rating: "+props.rating}</span>
+        <span className="card__rating"> {props.rating} <img src={ratingImg} style={{width:"20px"}} alt="" /></span>
       </div>
       <div className="card__button">
         <button onClick={cardHandler} className="card__add_button">{props.button1}</button>

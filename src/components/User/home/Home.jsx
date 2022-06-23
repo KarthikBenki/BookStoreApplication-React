@@ -10,10 +10,11 @@ import { useState } from "react";
 import BasicSelect from "../../utils/Select";
 import cart from "../../../assets/icons/trolley.png";
 import CartService from "../../../services/CartService";
+import { Button } from "@mui/material";
 
 
 
-export default function Home() {
+export default function Home(props) {
   const [bookDetails, setBookDetails] = useState([]);
   const [sortType, setSortType] = useState("");
   const [filter, setFilter] = useState("");
@@ -125,13 +126,18 @@ export default function Home() {
             ></input>
           </div>
           <div className="logo-content-home-links">
-            <Link
+            <Button
+            variant="contained"
               style={{ marginRight: "20px" }}
               className="login-link link"
-              to="/addBook"
+              onClick={()=>{
+                props.history.push({
+                  pathname:"/login"
+                })
+              }}
             >
-              AddBook{" "}
-            </Link>
+              LogOut{" "}
+            </Button>
             <div className="cart-image-container">
               <Link to="/cart">
                 <img className="cart-image" src={cart} alt="cart-img" />

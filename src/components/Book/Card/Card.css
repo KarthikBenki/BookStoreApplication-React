@@ -134,5 +134,10 @@
 
 .card__rating{
     font: bold;
-    color: red;
+    color:white;
+    background-color: blue;
+    align-items: center;
+    width: 40px;
+    display: flex;
+    justify-content: center;
 }
