@@ -26,7 +26,6 @@ function Cart(props) {
     CartService.getCartDetails()
       .then((response) => {
         setCartDetails(response.data.data);
-        
       })
       .catch((error) => {
         console.log(error);
@@ -52,25 +51,25 @@ function Cart(props) {
     CartService.updateCartQuantity(cartId, quantity);
   };
 
-  const checkoutHandler=(cartItem)=>{
-      let orderItem = {
-        "address": "Mg Road",
-        "bookId": cartItem.bookDetailsModel.bookId,
-        "cancel": false,
-        "price": cartItem.quantity*cartItem.bookDetailsModel.bookPrice,
-        "quantity":cartItem.quantity,
-        "userId": cartItem.bookDetailsModel.userId
-      }
+  const checkoutHandler = (cartItem) => {
+    let orderItem = {
+      address: "Mg Road",
+      bookId: cartItem.bookDetailsModel.bookId,
+      cancel: false,
+      price: cartItem.quantity * cartItem.bookDetailsModel.bookPrice,
+      quantity: cartItem.quantity,
+      userId: cartItem.bookDetailsModel.userId,
+    };
 
-      OrderService.placeOrder(orderItem).then((response)=>{
-        console.log(response);
+    OrderService.placeOrder(orderItem)
+      .then((response) => {
+        alert(response.data.message);
+        removeItemFromCart(cartItem.cartId)
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
       });
-      
-
-  }
+  };
 
   return (
     <div>
