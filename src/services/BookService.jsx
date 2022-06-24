@@ -2,6 +2,7 @@ import axios from "axios";
 
 class BookService {
   baseUrl = "http://localhost:8080/book";
+  
   token = localStorage.getItem('token');
 
   getAllBooks() {
@@ -28,7 +29,8 @@ class BookService {
   authAxios = axios.create({
     baseURL:this.baseUrl,
     headers: {
-        token:`${this.token}`
+        // token:`${this.token}`
+        token:localStorage.getItem('token')
     }
   })
 

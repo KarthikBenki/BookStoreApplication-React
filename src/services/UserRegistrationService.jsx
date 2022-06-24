@@ -24,7 +24,7 @@ class UserRegistrationService{
     }
 
     verifyOtp = (otp)=>{
-        return axios.put(`${this.baseUrl}`+"/verify/email/"+otp);
+        return axios.get(`${this.baseUrl}`+"/verify/email/"+otp);
     }
 }
 

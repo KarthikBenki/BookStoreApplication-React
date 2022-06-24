@@ -13,6 +13,7 @@ import Card from "@mui/material/Card";
 import CartService from "../../services/CartService";
 import { useState, useEffect } from "react";
 import "./Cart.css";
+import OrderService from "../../services/OrderService";
 
 function Cart(props) {
   const [cartDetails, setCartDetails] = useState([]);
@@ -25,7 +26,7 @@ function Cart(props) {
     CartService.getCartDetails()
       .then((response) => {
         setCartDetails(response.data.data);
-        console.log(cartDetails);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -50,6 +51,26 @@ function Cart(props) {
     let quantity = e.target.value;
     CartService.updateCartQuantity(cartId, quantity);
   };
+
+  const checkoutHandler=(cartItem)=>{
+      let orderItem = {
+        "address": "Mg Road",
+        "bookId": cartItem.bookDetailsModel.bookId,
+        "cancel": false,
+        "price": cartItem.quantity*cartItem.bookDetailsModel.bookPrice,
+        "quantity":cartItem.quantity,
+        "userId": cartItem.bookDetailsModel.userId
+      }
+
+      OrderService.placeOrder(orderItem).then((response)=>{
+        console.log(response);
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
+      
+
+  }
 
   return (
     <div>
@@ -102,7 +123,11 @@ function Cart(props) {
                   </div>
                   <CardContent>
                     <div>
-                      <Typography  variant="h6" component="div" sx={{height:"40px"}}>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ height: "40px" }}
+                      >
                         {cartItem.bookDetailsModel.bookName}
                       </Typography>
                     </div>
@@ -117,7 +142,9 @@ function Cart(props) {
                     />
                   </div>
                   <div className="cart_price">
-                  <label htmlFor="#">₹{cartItem.bookDetailsModel.bookPrice * cartItem.quantity} </label>
+                    <label htmlFor="#">
+                      ₹{cartItem.bookDetailsModel.bookPrice * cartItem.quantity}{" "}
+                    </label>
                   </div>
                   <div>
                     <CardActions>
@@ -128,7 +155,11 @@ function Cart(props) {
                       >
                         Remove
                       </Button>
-                      <Button variant="contained" size="small">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={() => checkoutHandler(cartItem)}
+                      >
                         Checkout
                       </Button>
                     </CardActions>
